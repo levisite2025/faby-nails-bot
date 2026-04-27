@@ -3,10 +3,16 @@ const express = require('express');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
-const { iniciarAgente } = require('./agente');
+const { iniciarAgente, getQRCode } = require('./agente');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Rota para o Frontend buscar o QR Code
+app.get('/api/qrcode', (req, res) => {
+    const qr = getQRCode();
+    res.json({ qr: qr });
+});
 
 // Middleware
 app.use(cors());

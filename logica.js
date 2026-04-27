@@ -570,8 +570,69 @@ function fecharModalPixAdmin() {
     document.getElementById('modalPixAdmin').classList.remove('ativo');
 }
 
-document.getElementById('modalPixAdmin').addEventListener('click', function(evento) {
-    if (evento.target === document.getElementById('modalPixAdmin')) {
-        fecharModalPixAdmin();
+// --- Lógica do WhatsApp (QR Code Web) ---
+let intervaloWhatsApp = null;
+let qrcodeGerado = null;
+
+function abrirModalWhatsApp() {
+    document.getElementById('modalWhatsApp').classList.add('ativo');
+    verificarStatusWhatsApp();
+    // Começa a vigiar o status a cada 3 segundos
+    intervaloWhatsApp = setInterval(verificarStatusWhatsApp, 3000);
+}
+
+function fecharModalWhatsApp() {
+    document.getElementById('modalWhatsApp').classList.remove('ativo');
+    if (intervaloWhatsApp) {
+        clearInterval(intervaloWhatsApp);
+        intervaloWhatsApp = null;
+    }
+}
+
+async function verificarStatusWhatsApp() {
+    try {
+        const resposta = await fetch('/api/qrcode');
+        const dados = await resposta.json();
+        
+        const containerQR = document.getElementById('containerQRCode');
+        const containerOK = document.getElementById('statusConectado');
+        const textoStatus = document.getElementById('statusWhatsAppTexto');
+        const divQRCode = document.getElementById('qrcodeWeb');
+
+        if (dados.qr) {
+            // Se tem QR Code, mostra ele
+            textoStatus.textContent = "Escaneie o código abaixo:";
+            containerQR.style.display = "block";
+            containerOK.style.display = "none";
+            
+            // Só gera o QR Code se ele mudou para não ficar piscando
+            if (qrcodeGerado !== dados.qr) {
+                divQRCode.innerHTML = "";
+                new QRCode(divQRCode, {
+                    text: dados.qr,
+                    width: 250,
+                    height: 250,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+                qrcodeGerado = dados.qr;
+            }
+        } else {
+            // Se não tem QR Code, é porque já está conectado ou carregando
+            textoStatus.textContent = "WhatsApp Conectado!";
+            containerQR.style.display = "none";
+            containerOK.style.display = "block";
+            qrcodeGerado = null;
+        }
+    } catch (erro) {
+        console.error("Erro ao verificar status do WhatsApp:", erro);
+        document.getElementById('statusWhatsAppTexto').textContent = "Servidor offline ou carregando...";
+    }
+}
+
+document.getElementById('modalWhatsApp').addEventListener('click', function(evento) {
+    if (evento.target === document.getElementById('modalWhatsApp')) {
+        fecharModalWhatsApp();
     }
 });

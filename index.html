@@ -23,6 +23,7 @@
             <button class="chamada-navegacao" onclick="abrirModalAdmin()"><ion-icon name="calendar-outline"></ion-icon> Agenda e Pagamento</button>
             <button class="chamada-navegacao" onclick="abrirModalRelatorios()"><ion-icon name="stats-chart-outline"></ion-icon> Relatórios</button>
             <button class="chamada-navegacao" onclick="abrirModalConfiguracoes()"><ion-icon name="settings-outline"></ion-icon> Configurações</button>
+            <button class="chamada-navegacao" style="background: #25D366; color: white;" onclick="abrirModalWhatsApp()"><ion-icon name="logo-whatsapp"></ion-icon> WhatsApp</button>
         </div>
     </nav>
 
@@ -291,6 +292,29 @@
         </div>
     </div>
 
+    <!-- Janela Modal do WhatsApp (QR Code) -->
+    <div class="fundo-modal" id="modalWhatsApp">
+        <div class="janela-modal" style="max-width: 400px; text-align: center;">
+            <button class="fechar-modal" onclick="fecharModalWhatsApp()"><ion-icon name="close-outline"></ion-icon></button>
+            <div class="cabecalho-modal">
+                <ion-icon name="logo-whatsapp" style="font-size: 3rem; color: #25D366;"></ion-icon>
+                <h2>Conectar WhatsApp</h2>
+                <p id="statusWhatsAppTexto">Verificando status...</p>
+            </div>
+            
+            <div id="containerQRCode" style="background: white; padding: 20px; border-radius: 15px; margin: 20px 0; display: none;">
+                <div id="qrcodeWeb" style="display: flex; justify-content: center;"></div>
+                <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">Aponte o WhatsApp do seu celular para este código.</p>
+            </div>
+
+            <div id="statusConectado" style="display: none; padding: 20px;">
+                <div style="font-size: 4rem; color: #25D366;"><ion-icon name="checkmark-circle"></ion-icon></div>
+                <p style="font-weight: 600; color: #25D366;">WhatsApp Conectado e Operacional!</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="logica.js"></script>
 </body>
 </html>

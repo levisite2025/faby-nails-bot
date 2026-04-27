@@ -149,15 +149,37 @@ async function processarMensagemBot(mensagem, numeroTelefone) {
     }
 }
 
+let ultimoQRCode = null;
+
 function iniciarAgente() {
     console.log("Iniciando Super Bot Faby Nails (Sem API)...");
     const client = new Client({
         authStrategy: new LocalAuth({ clientId: 'session-final' }),
-        puppeteer: { args: ['--no-sandbox'] }
+        puppeteer: { 
+            headless: true,
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-accelerated-2d-canvas',
+                '--no-first-run',
+                '--no-zygote',
+                '--single-process',
+                '--disable-gpu'
+            ]
+        }
     });
 
-    client.on('qr', (qr) => qrcode.generate(qr, { small: true }));
-    client.on('ready', () => console.log('¡Super Bot Faby Nails CONECTADO! 🚀'));
+    client.on('qr', (qr) => {
+        ultimoQRCode = qr;
+        qrcode.generate(qr, { small: true });
+        console.log('✅ QR Code gerado! Disponível também na interface web.');
+    });
+
+    client.on('ready', () => {
+        ultimoQRCode = null;
+        console.log('¡Super Bot Faby Nails CONECTADO! 🚀');
+    });
     
     client.on('message', async (msg) => {
         if (msg.from.endsWith('@c.us')) {
@@ -169,4 +191,8 @@ function iniciarAgente() {
     client.initialize();
 }
 
-module.exports = { iniciarAgente };
+function getQRCode() {
+    return ultimoQRCode;
+}
+
+module.exports = { iniciarAgente, getQRCode };
