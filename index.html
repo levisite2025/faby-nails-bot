@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faby Nails - Salão de Beleza & Estética</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+    <!-- Barra de Navegação -->
+    <nav class="barra-navegacao">
+        <div class="logotipo">
+            <ion-icon name="sparkles"></ion-icon>
+            Faby Nails
+        </div>
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <button class="chamada-navegacao" onclick="abrirModalClientes()"><ion-icon name="people-outline"></ion-icon> Clientes</button>
+            <button class="chamada-navegacao" onclick="abrirModalAdmin()"><ion-icon name="calendar-outline"></ion-icon> Agenda e Pagamento</button>
+            <button class="chamada-navegacao" onclick="abrirModalRelatorios()"><ion-icon name="stats-chart-outline"></ion-icon> Relatórios</button>
+            <button class="chamada-navegacao" onclick="abrirModalConfiguracoes()"><ion-icon name="settings-outline"></ion-icon> Configurações</button>
+        </div>
+    </nav>
+
+    <!-- Seção Principal -->
+    <header class="secao-destaque">
+        <div class="conteudo-destaque">
+            <h1>Realce sua <span class="realce">Beleza Única</span></h1>
+            <p>Descubra o cuidado perfeito para você em um ambiente luxuoso e relaxante. De manicure a spa dos pés, temos tudo para o seu bem-estar.</p>
+            <button class="botao-primario" onclick="abrirModalAgendamento()">
+                Escolha seu Serviço <ion-icon name="arrow-forward-outline"></ion-icon>
+            </button>
+        </div>
+        <div class="imagem-destaque">
+            <div class="forma-abstrata"></div>
+        </div>
+    </header>
+
+    <!-- Seção de Serviços -->
+    <section class="secao-servicos" id="servicos">
+        <h2>Nossos Serviços</h2>
+        <p class="subtitulo-secao">Experiências criadas para renovar corpo e alma.</p>
+        
+        <div class="grade-servicos">
+            <div class="cartao-servico" onclick="selecionarServico('Manicure & Pedicure')">
+                <div class="icone-servico"><ion-icon name="color-palette-outline"></ion-icon></div>
+                <h3>Manicure & Pedicure</h3>
+                <p>Cuidado completo para suas unhas com esmaltação premium, hidratação profunda e acabamento impecável.</p>
+                <button class="botao-secundario">Agendar</button>
+            </div>
+            
+            <div class="cartao-servico" onclick="selecionarServico('Depilação')">
+                <div class="icone-servico"><ion-icon name="leaf-outline"></ion-icon></div>
+                <h3>Depilação</h3>
+                <p>Pele suave e macia com nossa técnica de depilação delicada e produtos de alta qualidade que reduzem irritações.</p>
+                <button class="botao-secundario">Agendar</button>
+            </div>
+            
+            <div class="cartao-servico" onclick="selecionarServico('Spa dos Pés')">
+                <div class="icone-servico"><ion-icon name="water-outline"></ion-icon></div>
+                <h3>Spa dos Pés</h3>
+                <p>Relaxamento absoluto. Inclui esfoliação, massagem revigorante e hidratação intensiva para pés cansados.</p>
+                <button class="botao-secundario">Agendar</button>
+            </div>
+            
+            <div class="cartao-servico" onclick="selecionarServico('Sobrancelhas')">
+                <div class="icone-servico"><ion-icon name="eye-outline"></ion-icon></div>
+                <h3>Sobrancelhas</h3>
+                <p>Design de sobrancelhas personalizado para realçar o seu olhar e harmonizar os traços do seu rosto.</p>
+                <button class="botao-secundario">Agendar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2024 Faby Nails. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Janela Modal de Clientes -->
+    <div class="fundo-modal" id="modalClientes">
+        <div class="janela-modal">
+            <button class="fechar-modal" onclick="fecharModalClientes()"><ion-icon name="close-outline"></ion-icon></button>
+            <div class="cabecalho-modal">
+                <h2>Clientes Cadastrados</h2>
+                <p>Gerencie sua base de clientes.</p>
+            </div>
+            
+            <div id="listaClientesAdmin" class="lista-agendamentos">
+                <!-- Preenchido pelo JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Janela Modal da Agenda (Administrador) -->
+    <div class="fundo-modal" id="modalAdmin">
+        <div class="janela-modal">
+            <button class="fechar-modal" onclick="fecharModalAdmin()"><ion-icon name="close-outline"></ion-icon></button>
+            <div class="cabecalho-modal">
+                <h2>Agenda Faby Nails</h2>
+                <p>Todos os serviços agendados no sistema.</p>
+            </div>
+            
+            <div id="listaAgendamentos" class="lista-agendamentos">
+                <!-- Preenchido pelo JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Janela de Agendamento Modal -->
+    <div class="fundo-modal" id="modalAgendamento">
+        <div class="janela-modal">
+            <button class="fechar-modal" onclick="fecharModalAgendamento()"><ion-icon name="close-outline"></ion-icon></button>
+            <div class="cabecalho-modal">
+                <h2>Agende seu Horário</h2>
+                <p>Preencha os dados abaixo e entraremos em contato para confirmar.</p>
+            </div>
+            
+            <form id="formularioAgendamento" onsubmit="enviarAgendamento(event)">
+                <div class="grupo-formulario">
+                    <label for="selecaoServico">Serviço Desejado</label>
+                    <select id="selecaoServico" required>
+                        <option value="" disabled selected>Selecione um serviço...</option>
+                        <option value="Manicure & Pedicure">Pé & Mão (Completo)</option>
+                        <option value="Apenas Mão">Apenas Mão</option>
+                        <option value="Apenas Pé">Apenas Pé</option>
+                        <option value="Esmaltação em Gel">Esmaltação em Gel</option>
+                        <option value="Alongamento de Unhas">Alongamento de Unhas</option>
+                        <option value="Sobrancelha com Henna">Sobrancelha com Henna</option>
+                        <option value="Sobrancelha Simples">Sobrancelha Simples</option>
+                        <option value="Depilação Completa">Depilação Completa</option>
+                        <option value="Depilação Buço">Depilação Buço</option>
+                        <option value="Spa dos Pés">Spa dos Pés</option>
+                    </select>
+                </div>
+                
+                <div class="linha-formulario">
+                    <div class="grupo-formulario">
+                        <label for="selecaoData">Data</label>
+                        <input type="date" id="selecaoData" required>
+                    </div>
+                    <div class="grupo-formulario">
+                        <label for="selecaoHora">Horário</label>
+                        <input type="time" id="selecaoHora" required>
+                    </div>
+                </div>
+
+                <div class="grupo-formulario" id="areaClientesCadastrados" style="display: none; background: #fff8f0; padding: 1rem; border-radius: var(--borda-pequena); border: 1px dashed var(--primaria);">
+                    <label for="selecaoClienteCadastrado" style="color: var(--primaria-escura);">Já é cliente? Selecione abaixo:</label>
+                    <select id="selecaoClienteCadastrado" onchange="preencherDadosCliente()" style="border-color: var(--primaria-clara);">
+                        <option value="">-- Novo Cliente (Vou digitar os dados) --</option>
+                    </select>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="nomeCliente">Seu Nome</label>
+                    <input type="text" id="nomeCliente" placeholder="Como podemos te chamar?" required>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="telefoneCliente">WhatsApp</label>
+                    <input type="tel" id="telefoneCliente" placeholder="(00) 00000-0000" required>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="campoObservacoes">Observações / Pedidos Especiais</label>
+                    <textarea id="campoObservacoes" rows="2" placeholder="Ex: Cor de esmalte, preferência de profissional..." style="width: 100%; padding: 0.8rem; border: 1px solid var(--primaria-clara); border-radius: var(--borda-pequena);"></textarea>
+                </div>
+
+                <button type="submit" class="botao-primario largura-total">Confirmar Agendamento</button>
+            </form>
+
+            
+            <div id="mensagemSucesso" class="mensagem-sucesso" style="display: none;">
+                <ion-icon name="checkmark-circle"></ion-icon>
+                <h3>Agendamento Solicitado!</h3>
+                <p>Sua solicitação para <strong id="sucessoNomeServico"></strong> no dia <strong id="sucessoData"></strong> às <strong id="sucessoHora"></strong> foi enviada.</p>
+                <p>Em breve entraremos em contato pelo WhatsApp para confirmar.</p>
+                <button class="botao-secundario largura-total margem-topo" onclick="fecharModalAgendamento()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Janela Modal de Configurações -->
+    <div class="fundo-modal" id="modalConfiguracoes">
+        <div class="janela-modal">
+            <button class="fechar-modal" onclick="fecharModalConfiguracoes()"><ion-icon name="close-outline"></ion-icon></button>
+            <div class="cabecalho-modal">
+                <h2>Configurações do Sistema</h2>
+                <p>Ajuste os preços e sua chave Pix.</p>
+            </div>
+            
+            <form id="formularioConfiguracoes" onsubmit="salvarConfiguracoes(event)">
+                <h3 style="margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; color: var(--primaria-escura);">Tabela de Preços (R$)</h3>
+                
+                <div class="linha-formulario">
+                    <div class="grupo-formulario">
+                        <label>Manicure & Pedicure</label>
+                        <input type="number" id="precoManicure" step="0.01" min="0" required>
+                    </div>
+                    <div class="grupo-formulario">
+                        <label>Depilação</label>
+                        <input type="number" id="precoDepilacao" step="0.01" min="0" required>
+                    </div>
+                </div>
+                <div class="linha-formulario">
+                    <div class="grupo-formulario">
+                        <label>Spa dos Pés</label>
+                        <input type="number" id="precoSpa" step="0.01" min="0" required>
+                    </div>
+                    <div class="grupo-formulario">
+                        <label>Sobrancelhas</label>
+                        <input type="number" id="precoSobrancelhas" step="0.01" min="0" required>
+                    </div>
+                </div>
+
+                <h3 style="margin: 1.5rem 0 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; color: var(--primaria-escura);">Dados do Pix</h3>
+                
+                <div class="grupo-formulario">
+                    <label for="configChavePix">Chave Pix (Para celular, use +55 antes. Ex: +5571988991784)</label>
+                    <input type="text" id="configChavePix" placeholder="+5571988991784 ou seu CPF/E-mail" required>
+                </div>
+                <div class="linha-formulario">
+                    <div class="grupo-formulario">
+                        <label for="configNomePix">Nome do Recebedor</label>
+                        <input type="text" id="configNomePix" placeholder="Nome igual ao do banco" required>
+                    </div>
+                    <div class="grupo-formulario">
+                        <label for="configCidadePix">Cidade</label>
+                        <input type="text" id="configCidadePix" placeholder="Sua cidade" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="botao-primario largura-total" style="margin-top: 1rem;">Salvar Configurações</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Janela Modal de Relatórios -->
+    <div class="fundo-modal" id="modalRelatorios">
+        <div class="janela-modal">
+            <button class="fechar-modal" onclick="fecharModalRelatorios()"><ion-icon name="close-outline"></ion-icon></button>
+            <div class="cabecalho-modal">
+                <h2>Relatório Diário</h2>
+                <p>Fechamento do caixa e acompanhamento de serviços.</p>
+            </div>
+            
+            <div style="margin-bottom: 1.5rem;">
+                <label for="dataRelatorio" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Selecione a Data:</label>
+                <input type="date" id="dataRelatorio" onchange="gerarRelatorio()" style="width: 100%; padding: 0.8rem; border: 1px solid var(--primaria-clara); border-radius: var(--borda-pequena); font-size: 1rem; outline: none;">
+            </div>
+            
+            <div id="listaRelatorio" class="lista-agendamentos">
+                <!-- Preenchido pelo JavaScript -->
+            </div>
+            
+            <div style="margin-top: 1.5rem; padding: 1rem; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: var(--borda-pequena); color: var(--primaria-escura); display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="margin: 0;">Total do Dia:</h3>
+                <h2 style="margin: 0;" id="totalRelatorio">R$ 0,00</h2>
+            </div>
+            
+            <button class="botao-secundario" style="margin-top: 1rem; width: 100%; color: #ef4444; border-color: #ef4444;" onclick="excluirDadosRelatorio()">
+                <ion-icon name="trash-outline" style="vertical-align: middle;"></ion-icon> Excluir Registros Deste Dia
+            </button>
+        </div>
+    </div>
+
+    <!-- Janela Modal do Pix Admin -->
+    <div class="fundo-modal" id="modalPixAdmin">
+        <div class="janela-modal" style="max-width: 400px; text-align: center;">
+            <button class="fechar-modal" onclick="fecharModalPixAdmin()"><ion-icon name="close-outline"></ion-icon></button>
+            <div class="cabecalho-modal" style="margin-bottom: 0;">
+                <h2>Pagamento via Pix</h2>
+                <p>Mostre este código para a cliente pagar.</p>
+            </div>
+            
+            <div style="padding: 1rem 0;">
+                <ion-icon name="qr-code-outline" style="font-size: 3rem; color: var(--primaria);"></ion-icon>
+                <p style="margin: 1rem 0;">Valor do serviço: <strong id="valorPixAdmin" style="font-size: 1.5rem; color: var(--primaria-escura);"></strong></p>
+                
+                <div style="margin: 1.5rem auto; padding: 1rem; background: white; width: fit-content; border-radius: var(--borda-pequena); box-shadow: var(--sombra);">
+                    <img src="" alt="QR Code Pix" width="200" height="200" id="imagemQrCodeAdmin">
+                </div>
+                
+                <button class="botao-primario largura-total" onclick="fecharModalPixAdmin()">Fechar Tela</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="logica.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+    "nome_salao": "Faby Nails",
+    "servicos": {
+        "1": { "nome": "Pé & Mão (Completo)", "preco": 75 },
+        "2": { "nome": "Apenas Mão", "preco": 40 },
+        "3": { "nome": "Apenas Pé", "preco": 45 },
+        "4": { "nome": "Esmaltação em Gel", "preco": 60 },
+        "5": { "nome": "Alongamento de Unhas", "preco": 150 },
+        "6": { "nome": "Sobrancelha com Henna", "preco": 55 },
+        "7": { "nome": "Sobrancelha Simples", "preco": 35 },
+        "8": { "nome": "Depilação Completa", "preco": 120 },
+        "9": { "nome": "Depilação Buço", "preco": 20 },
+        "10": { "nome": "Spa dos Pés", "preco": 50 }
+    },
+    "mensagens": {
+        "boas_vindas": "Olá! Bem-vinda à *Faby Nails*. ✨\nComo posso ajudar?\n\n1️⃣ - Agendar 📅\n2️⃣ - Preços 💰",
+        "pedir_nome": "Por favor, informe seu *Nome Completo*:",
+        "satisfacao_conhecer": "Obrigada, {nome}. Qual serviço deseja agendar?\n\n"
+    }
+}
